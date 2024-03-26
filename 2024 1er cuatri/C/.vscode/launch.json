@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/2 Estudio/UNSAM/2023/2o cuatrimestre/Labo de computacion/GITHUB/Proyectos/2024 1er cuatri/Hechos por mi/C",
-      "program": "d:/2 Estudio/UNSAM/2023/2o cuatrimestre/Labo de computacion/GITHUB/Proyectos/2024 1er cuatri/Hechos por mi/C/build/Debug/outDebug",
+      "cwd": ".",
+      "program": "build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
