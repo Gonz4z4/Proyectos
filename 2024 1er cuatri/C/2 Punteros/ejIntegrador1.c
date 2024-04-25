@@ -16,6 +16,6 @@ int main(){
         suma+=*p; //*p referencia al numero adentro de p y p es la dirección de memoria del numero
         multi*=*p;
     }   
-    printf("esto es p por si te da duda %i\n",p);
+    printf("esto es p por si te da duda %p\n",p);
     printf("la suma da %i y la multiplicacion %i\n",suma, multi);
 }
