@@ -88,6 +88,7 @@ public imprimir ;imprime lo que le pases por bx
 public contarCaracteres ; cuenta caracteres
 public contarCaracterEsp ;cuenta cantidad de caracteres en una variable
 public limpiarVariables ;llena variables de $$$$
+public limpiaPantalla ;autoexplicativo
 public ponerGuiones ;Genera una variable llena de guiones
 public actualiza_guiones ;guiones letra pone
 public cargaExtendida ;caja de carga mejorada
@@ -264,6 +265,24 @@ finLimpiar:
        pop cx
        ret
 limpiarVariables endp
+;---------------------------------------------------------
+limpiaPantalla proc 
+              
+       push ax
+
+       mov ah, 0fh   ;obtiene el modo de video actual y la página activa
+       int 10h       ;En AL contendrá el número del modo de video actual y BH contendrá el número de la página activa.
+       
+       mov ah, 0     ;Cargo el 0 en AH, esto llamara a la funcion 00h que establece el modo de video. La funciion 00h establece el modo de video actual y limpia pantalla.
+       int 10h
+
+       pop ax
+
+       ret 
+
+limpiaPantalla endp
+
+
 ;---------------------------------------------------------
 ponerGuiones proc
        ;RECIBE EL OFFSET DE PALABRA DESDE DX

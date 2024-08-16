@@ -40,11 +40,12 @@ public charxchar ;cambia un caracter por otro
 ;Llena una variable con caracteres ascii, termina la carga con caracter de finalizacion en AL.
 ;Recibe offset en BX, y caracter de finalizacion en AL
 carga proc
+
         push bx ; PROFILAXIS
         push dx
         push ax
 
-        ;mov bx, dx ; CARGO EL OFFSET EN BX
+        mov bx, dx ; CARGO EL OFFSET EN BX
         mov dl, al ; MUEVO EL CARACTER DE FINALIZACIÖN A DL
         xor dh, dh 
  cargaTexto:
@@ -69,7 +70,7 @@ contarCaracteres proc
        mov bx, dx ; cargo el offset de la variable en [bx]
        xor dx, dx ; Limpio para usar dl
 contar:
-       cmp byte ptr [bx], 24h
+       cmp [bx], byte ptr 24h
        je finContar
        inc dl
        inc bx
@@ -183,7 +184,6 @@ regToAscii endp
 ;---------------------------------------------------------
 
 imprimir proc  ;Recibe el offset en BX
-       ; PUSHEAR BX!!!!!
        ;printeo
 
        push bp

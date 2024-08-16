@@ -264,6 +264,7 @@ finLimpiar:
        pop cx
        ret
 limpiarVariables endp
+
 ;---------------------------------------------------------
 ponerGuiones proc
        ;RECIBE EL OFFSET DE PALABRA DESDE DX

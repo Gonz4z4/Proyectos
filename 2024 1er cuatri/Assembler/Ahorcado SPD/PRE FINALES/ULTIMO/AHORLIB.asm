@@ -3,98 +3,19 @@
 .stack 100h
 
 .data
-       color db ?  
        salto db 0dh,0ah, 24h ;salto de linea para las impresiones
-       img0 db "   +---+   ",0dh,0ah
-            db "   |   |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "  =========",0dh,0ah,24h
-
-       img1 db "   +---+   ",0dh,0ah
-            db "   |   |   ",0dh,0ah
-            db "   O   |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "  =========",0dh,0ah,24h
-
-       img2 db "   +---+   ",0dh,0ah
-            db "   |   |   ",0dh,0ah
-            db "   O   |   ",0dh,0ah
-            db "   |   |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "  =========",0dh,0ah,24h
-
-       img3 db "   +---+   ",0dh,0ah
-            db "   |   |   ",0dh,0ah
-            db "   O   |   ",0dh,0ah
-            db "  /|   |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "  =========",0dh,0ah,24h
-
-       img4 db "   +---+   ",0dh,0ah
-            db "   |   |   ",0dh,0ah
-            db "   O   |   ",0dh,0ah
-            db "  /|\  |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "  =========",0dh,0ah,24h
-
-       img5 db "   +---+   ",0dh,0ah
-            db "   |   |   ",0dh,0ah
-            db "   O   |   ",0dh,0ah
-            db "  /|\  |   ",0dh,0ah
-            db "  /    |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "  =========",0dh,0ah,24h
-
-       img6 db "   +---+   ",0dh,0ah
-            db "   |   |   ",0dh,0ah
-            db "   O   |   ",0dh,0ah
-            db "  /|\  |   ",0dh,0ah
-            db "  / \  |   ",0dh,0ah
-            db "       |   ",0dh,0ah
-            db "  =========",0dh,0ah,24h
-
-
-       ganaste db"    ____                       _       ",0dh,0ah
-               db"  / ____|                     | |      ",0dh,0ah
-               db" | |  __  __ _ _ __   __ _ ___| |_ ___ ",0dh,0ah
-               db" | | |_ |/ _` | '_ \ / _` / __| __/ _ \",0dh,0ah
-               db" | |__| | (_| | | | | (_| \__ \ ||  __/",0dh,0ah
-               db"  \_____|\__,_|_| |_|\__,_|___/\__\___|",0dh,0ah,24h
-                                       
-                                       
-                                                                  
-                                              
-       perdiste db"  _____             _ _     _       ",0dh,0ah
-                db" |  __ \           | (_)   | |      ",0dh,0ah
-                db" | |__) |__ _ __ __| |_ ___| |_ ___ ",0dh,0ah
-                db" |  ___/ _ \ '__/ _` | / __| __/ _ \",0dh,0ah
-                db" | |  |  __/ | | (_| | \__ \ ||  __/",0dh,0ah
-                db" |_|   \___|_|  \__,_|_|___/\__\___|",0dh,0ah,24h
-                                    
-  
-
-.code
 
 .code
 public imprimir ;imprime lo que le pases por bx
 public contarCaracteres ; cuenta caracteres
 public contarCaracterEsp ;cuenta cantidad de caracteres en una variable
 public limpiarVariables ;llena variables de $$$$
+public limpiaPantalla ;autoexplicativo
 public ponerGuiones ;Genera una variable llena de guiones
 public actualiza_guiones ;guiones letra pone
 public cargaExtendida ;caja de carga mejorada
 public mayus_letra ;letra ingresada pasa a mayus
 public mayusculizar ;MAYUSCULIZA EL TEXTO PALABRA
-public esperarTecla ;espera tecla seguir
-
 
 
 ;---------------------------------------------------------
@@ -265,6 +186,24 @@ finLimpiar:
        ret
 limpiarVariables endp
 ;---------------------------------------------------------
+limpiaPantalla proc 
+              
+       push ax
+
+       mov ah, 0fh   ;obtiene el modo de video actual y la página activa
+       int 10h       ;En AL contendrá el número del modo de video actual y BH contendrá el número de la página activa.
+       
+       mov ah, 0     ;Cargo el 0 en AH, esto llamara a la funcion 00h que establece el modo de video. La funciion 00h establece el modo de video actual y limpia pantalla.
+       int 10h
+
+       pop ax
+
+       ret 
+
+limpiaPantalla endp
+
+
+;---------------------------------------------------------
 ponerGuiones proc
        ;RECIBE EL OFFSET DE PALABRA DESDE DX
        ;RECIBE EL OFFSET DE VARIABLE DE GUIONES DESDE SI
@@ -372,12 +311,4 @@ termino:
 
 mayusculizar endp
 ;-----------------------------------------------------------
-esperarTecla proc
-    mov ah, 00h  ; Función de DOS para leer una tecla sin esperar
-    int 16h      ; Llama a la interrupción de BIOS para leer la tecla
-    ret
-esperarTecla endp
-
-
-
 end
